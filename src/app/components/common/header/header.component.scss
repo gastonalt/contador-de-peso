@@ -1,0 +1,27 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar{
+  padding: 16px !important;
+}
+
+.mat-toolbar-single-row{
+  height: 64px !important;
+}
+
+span{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 32px;
+  /* identical to box height, or 139% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.25px;
+  text-indent: 20px;
+
+  color: #000000;
+}

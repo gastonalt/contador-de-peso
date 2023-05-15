@@ -1,0 +1,118 @@
+@use '@angular/material' as mat;
+
+@import '@angular/material/theming';
+
+@include mat.core();
+
+$primary-color: (
+  50 : #fdf9e1,
+  100 : #fbefb4,
+  200 : #f9e582,
+  300 : #f6db50,
+  400 : #f4d32b,
+  500 : #f2cb05,
+  600 : #f0c604,
+  700 : #eebe04,
+  800 : #ecb803,
+  900 : #e8ac01,
+  A100 : #ffffff,
+  A200 : #fff5dc,
+  A400 : #ffe5a9,
+  A700 : #ffde90,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$accent-color: (
+  50 : #fdf9e1,
+  100 : #fbefb4,
+  200 : #f9e582,
+  300 : #f6db50,
+  400 : #f4d32b,
+  500 : #f2cb05,
+  600 : #f0c604,
+  700 : #eebe04,
+  800 : #ecb803,
+  900 : #e8ac01,
+  A100 : #ffffff,
+  A200 : #fff5dc,
+  A400 : #ffe5a9,
+  A700 : #ffde90,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$warm-color: (
+  50 : #fdf9e1,
+  100 : #fbefb4,
+  200 : #f9e582,
+  300 : #f6db50,
+  400 : #f4d32b,
+  500 : #f2cb05,
+  600 : #f0c604,
+  700 : #eebe04,
+  800 : #ecb803,
+  900 : #e8ac01,
+  A100 : #ffffff,
+  A200 : #fff5dc,
+  A400 : #ffe5a9,
+  A700 : #ffde90,
+  contrast: (
+      50 : #000000,
+      100 : #000000,
+      200 : #000000,
+      300 : #000000,
+      400 : #000000,
+      500 : #000000,
+      600 : #000000,
+      700 : #000000,
+      800 : #000000,
+      900 : #000000,
+      A100 : #000000,
+      A200 : #000000,
+      A400 : #000000,
+      A700 : #000000,
+  )
+);
+
+$palette-primary: mat-palette($primary-color);
+$palette-accent: mat-palette($accent-color);
+$palette-warm: mat-palette($warm-color);
+
+$theme: mat-dark-theme((
+  color: (
+    primary: $palette-primary,
+    accent: $palette-accent,
+    warm: $palette-warm
+  )
+));
+
+@include angular-material-theme($theme);
