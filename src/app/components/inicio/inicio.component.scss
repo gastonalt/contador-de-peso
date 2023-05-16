@@ -1,11 +1,12 @@
 .buscar{
   margin: 8px 0;
   padding: 16px;
-  width: 100%;
+  width: calc(100% - 32px);;
 }
 
 .buscar-input{
-  width: calc(100% - 32px);
+  width: 100%;
+  max-width: 100%;
 }
 
 .mat-form-field-appearance-outline{

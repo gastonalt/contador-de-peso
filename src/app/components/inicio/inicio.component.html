@@ -1,11 +1,11 @@
 <!-- BUSCAR -->
 
-<div class="buscar">
+<div class="buscar" [formGroup]="searchForm">
   <mat-form-field appearance="outline" class="buscar-input">
     <mat-label>Buscar por ejercicio</mat-label>
-    <input matInput type="text" [(ngModel)]="value">
-    <mat-icon matSuffix *ngIf="!value">search</mat-icon>
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <input matInput type="text" formControlName="criteria">
+    <mat-icon matSuffix *ngIf="!searchForm.value.criteria">search</mat-icon>
+    <button *ngIf="searchForm.value.criteria" matSuffix mat-icon-button aria-label="Clear" (click)="clearBusqueda()">
       <mat-icon>close</mat-icon>
     </button>
   </mat-form-field>
@@ -14,7 +14,7 @@
 <!-- LISTADO DE EJERCICIOS -->
 
 <mat-list>
-  <div *ngFor="let peso of pesos" style="margin: auto !important">
+  <div *ngFor="let peso of pesosFiltered" style="margin: auto !important">
     <mat-list-item>
       <div matListItemTitle>{{peso.ejercicio.descripcion}}</div>
       <div matListItemLine>{{peso.peso}}</div>

@@ -4,6 +4,7 @@
 
 .mat-toolbar{
   padding: 16px !important;
+  position: sticky; position: -webkit-sticky; top: 0;
 }
 
 .mat-toolbar-single-row{

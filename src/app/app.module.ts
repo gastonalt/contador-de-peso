@@ -9,13 +9,15 @@ import { MaterialModule } from './modules/material.module';
 import { SubheaderStatusSectionComponent } from './components/common/subheader-status-section/subheader-status-section.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CtaFloatingButtonComponent } from './components/common/cta-floating-button/cta-floating-button.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SubheaderStatusSectionComponent,
-    InicioComponent
+    InicioComponent,
+    CtaFloatingButtonComponent
   ],
   imports: [
     BrowserModule,
