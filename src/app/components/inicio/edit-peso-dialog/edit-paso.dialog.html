@@ -1,0 +1,15 @@
+<h1 class="title">Editar peso</h1>
+<div mat-dialog-content>
+  <p class="descripcion">Ingresa el nuevo peso para levantar en Cuádriceps</p>
+  <mat-form-field appearance="outline">
+    <mat-label>Peso</mat-label>
+    <input matInput [(ngModel)]="data.nuevoPeso">
+    <mat-hint>Nuevo peso en Kg.</mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.nuevoPeso" cdkFocusInitial>
+    Editar peso
+    <mat-icon>edit</mat-icon>
+  </button>
+</div>

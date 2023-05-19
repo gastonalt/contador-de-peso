@@ -15,7 +15,7 @@ export class SubheaderStatusSectionComponent implements OnInit {
 
   ngOnInit() {
     this.searchService.getBuscando().subscribe((isBuscando: boolean)=>{
-      this.textSubHeader = isBuscando? 'Volver a inicio' : 'Peso del día';
+      this.textSubHeader = isBuscando? '< Volver a inicio' : 'Peso del día';
       this.textHeader = isBuscando? 'Resultados' : this.formatDate(new Date());
     })
   }
@@ -36,6 +36,10 @@ export class SubheaderStatusSectionComponent implements OnInit {
           .padStart(2, '0');
   
     return `${date}/${month}/${year}`;
+  }
+
+  clearBusqueda(){
+    this.searchService.limpiarBusqueda();
   }
 
 }

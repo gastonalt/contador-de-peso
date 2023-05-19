@@ -10,6 +10,7 @@ import { SubheaderStatusSectionComponent } from './components/common/subheader-s
 import { InicioComponent } from './components/inicio/inicio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CtaFloatingButtonComponent } from './components/common/cta-floating-button/cta-floating-button.component';
+import { EditPasoDialog } from './components/inicio/edit-peso-dialog/edit-paso.dialog';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CtaFloatingButtonComponent } from './components/common/cta-floating-but
     HeaderComponent,
     SubheaderStatusSectionComponent,
     InicioComponent,
-    CtaFloatingButtonComponent
+    CtaFloatingButtonComponent,
+    EditPasoDialog
   ],
   imports: [
     BrowserModule,

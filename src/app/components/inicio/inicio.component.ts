@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Peso } from 'src/app/models/Peso';
 import { SearchService } from 'src/app/services/search.service';
+import { EditPasoDialog } from './edit-peso-dialog/edit-paso.dialog';
 
 @Component({
   selector: 'app-inicio',
@@ -12,24 +15,32 @@ export class InicioComponent implements OnInit{
   value = '';
   searchForm!: FormGroup;
 
-  pesos = [
+  pesos: Peso[] = [
     {
+      idPeso: 1,
       ejercicio: {
+        idEjercicio: 1,
         descripcion: 'Cuadriceps'
       },
-      peso: '35kg'
+      peso: 35,
+      borrado: false,
+      fecha: new Date()
     },
     {
+      idPeso: 2,
       ejercicio: {
+        idEjercicio: 2,
         descripcion: 'Biceps'
       },
-      peso: '5kg'
+      peso: 5,
+      borrado: false,
+      fecha: new Date()
     }
   ];
 
   pesosFiltered: any[] = [];
 
-  constructor(private searchService: SearchService, private fb: FormBuilder){}
+  constructor(private searchService: SearchService, private fb: FormBuilder, public dialog: MatDialog){}
 
   ngOnInit() {
 
@@ -39,6 +50,13 @@ export class InicioComponent implements OnInit{
       criteria: ['']
     });
 
+    this.searchService.getLimpiarBusqueda().subscribe((value: boolean)=>{
+      if(value == true){
+        this.searchForm.controls['criteria'].setValue('');
+        this.searchService.setBuscando(false);
+      }
+    })
+
     this.searchForm.valueChanges.subscribe((value: any)=>{
       this.searchService.setBuscando(value.criteria.length !== 0);
       if(value.criteria.length > 0){
@@ -47,6 +65,17 @@ export class InicioComponent implements OnInit{
         this.pesosFiltered = this.pesos;
       }
     })
+  }
+
+  editarPeso(peso: Peso){
+    const dialogRef = this.dialog.open(EditPasoDialog, {
+      data: {nuevoPeso: peso.peso},
+    });
+
+    dialogRef.afterClosed().subscribe(nuevoPeso => {
+      console.log(nuevoPeso);
+      // Edito en el backend este nuevo peso
+    });
   }
 
   buscar(value: string){

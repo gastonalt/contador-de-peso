@@ -8,6 +8,8 @@ export class SearchService {
 
   private buscando: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  private limpiarBusquedaFlag: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor() { }
 
   getBuscando(): Observable<boolean>{
@@ -17,4 +19,15 @@ export class SearchService {
   setBuscando(isBuscando: boolean): void{
     this.buscando.next(isBuscando);
   }
+
+  limpiarBusqueda(): void{
+    this.limpiarBusquedaFlag.next(true);
+    this.limpiarBusquedaFlag.next(false);
+  }
+
+  getLimpiarBusqueda(): Observable<boolean>{
+    return this.limpiarBusquedaFlag;
+  }
+
+
 }
