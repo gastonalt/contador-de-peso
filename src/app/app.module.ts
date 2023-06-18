@@ -11,6 +11,11 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CtaFloatingButtonComponent } from './components/common/cta-floating-button/cta-floating-button.component';
 import { EditPasoDialog } from './components/inicio/edit-peso-dialog/edit-paso.dialog';
+import { DetailComponent } from './components/detail/detail.component';
+import { states } from './state/app';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 @NgModule({
   declarations: [
@@ -19,7 +24,8 @@ import { EditPasoDialog } from './components/inicio/edit-peso-dialog/edit-paso.d
     SubheaderStatusSectionComponent,
     InicioComponent,
     CtaFloatingButtonComponent,
-    EditPasoDialog
+    EditPasoDialog,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +33,9 @@ import { EditPasoDialog } from './components/inicio/edit-peso-dialog/edit-paso.d
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxsModule.forRoot(states),
+    NgxsStoragePluginModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

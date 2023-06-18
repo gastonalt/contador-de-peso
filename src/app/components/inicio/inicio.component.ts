@@ -4,6 +4,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { Peso } from 'src/app/models/Peso';
 import { SearchService } from 'src/app/services/search.service';
 import { EditPasoDialog } from './edit-peso-dialog/edit-paso.dialog';
+import { SetPesoSeleccionadoAction } from 'src/app/state/pesoSeleccionado.state';
+import { Store } from '@ngxs/store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-inicio',
@@ -38,9 +41,13 @@ export class InicioComponent implements OnInit{
     }
   ];
 
-  pesosFiltered: any[] = [];
+  pesosFiltered: Peso[] = [];
 
-  constructor(private searchService: SearchService, private fb: FormBuilder, public dialog: MatDialog){}
+  constructor(private searchService: SearchService,
+              private fb: FormBuilder,
+              public dialog: MatDialog,
+              private store: Store,
+              private router: Router){}
 
   ngOnInit() {
 
@@ -73,14 +80,21 @@ export class InicioComponent implements OnInit{
     });
 
     dialogRef.afterClosed().subscribe(nuevoPeso => {
+      peso.peso = nuevoPeso;
       console.log(nuevoPeso);
       // Edito en el backend este nuevo peso
     });
   }
 
+  navigatePesoDetail(peso: Peso) {
+    this.store.dispatch(new SetPesoSeleccionadoAction(peso)).subscribe(()=>{
+      this.router.navigate(['detail'])
+    })
+  }
+
   buscar(value: string){
     this.pesosFiltered = this.pesos.filter((peso: any)=>{
-      return peso.ejercicio.descripcion.toLowerCase().includes(value.toLowerCase()); 
+      return peso.ejercicio.descripcion.toLowerCase().includes(value.toLowerCase());
     })
   }
 

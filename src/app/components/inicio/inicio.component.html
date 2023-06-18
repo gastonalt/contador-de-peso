@@ -16,8 +16,8 @@
 <mat-list>
   <div *ngFor="let peso of pesosFiltered" style="margin: auto !important">
     <mat-list-item>
-      <div matListItemTitle>{{peso.ejercicio.descripcion}}</div>
-      <div matListItemLine>{{peso.peso}}</div>
+      <div matListItemTitle (click)="navigatePesoDetail(peso)">{{peso.ejercicio.descripcion}}</div>
+      <div matListItemLine (click)="navigatePesoDetail(peso)">{{peso.peso}}</div>
       <mat-icon matListItemIcon (click)="editarPeso(peso)" class="pencil-icon">edit</mat-icon>
     </mat-list-item>
     <mat-divider></mat-divider>
