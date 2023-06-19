@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Select} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Peso } from 'src/app/models/Peso';
+import { PesosService } from 'src/app/services/pesos.service';
 import { PesosState } from 'src/app/state/pesoSeleccionado.state';
 
 @Component({
@@ -37,13 +38,19 @@ export class DetailComponent implements OnInit{
     }
   ];
 
+  constructor(private pesosService: PesosService){}
+
   ngOnInit(): void {
 
+    
     this.pesosFiltered = this.pesos;
-
-    this.pesoSeleccionado$.subscribe((peso: Peso) => {
+    
+    this.pesoSeleccionado$.subscribe((peso: any) => {
       this.pesoSeleccionado = peso;
       console.log(this.pesoSeleccionado)
+      this.pesosService.getPesosByEjercicio(peso.pesoSeleccionado.ejercicio.idEjercicio).subscribe((pesos: Peso[])=>{
+        this.pesosFiltered = pesos;
+      })
     })
   }
 

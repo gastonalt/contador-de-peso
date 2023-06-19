@@ -1,9 +1,9 @@
 <mat-list>
   <div *ngFor="let peso of pesosFiltered" style="margin: auto !important">
     <mat-list-item>
-      <div matListItemTitle>{{peso.ejercicio.descripcion}}</div>
-      <div matListItemLine>{{peso.peso}}</div>
-      <mat-icon matListItemIcon (click)="eliminar(peso)" class="pencil-icon">edit</mat-icon>
+      <div matListItemTitle>{{peso.peso}} Kg</div>
+      <div matListItemLine>{{peso.fecha | date: 'dd/MM/yyyy'}}</div>
+      <mat-icon matListItemIcon (click)="eliminar(peso)" class="delete-icon">delete</mat-icon>
     </mat-list-item>
     <mat-divider></mat-divider>
   </div>

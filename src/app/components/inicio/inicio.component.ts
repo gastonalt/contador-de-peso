@@ -7,6 +7,7 @@ import { EditPasoDialog } from './edit-peso-dialog/edit-paso.dialog';
 import { SetPesoSeleccionadoAction } from 'src/app/state/pesoSeleccionado.state';
 import { Store } from '@ngxs/store';
 import { Router } from '@angular/router';
+import { PesosService } from 'src/app/services/pesos.service';
 
 @Component({
   selector: 'app-inicio',
@@ -47,11 +48,16 @@ export class InicioComponent implements OnInit{
               private fb: FormBuilder,
               public dialog: MatDialog,
               private store: Store,
-              private router: Router){}
+              private router: Router,
+              private pesosService: PesosService){}
 
   ngOnInit() {
 
-    this.pesosFiltered = this.pesos;
+    this.pesosService.getAllPesos().subscribe((pesos: Peso[])=>{
+      this.pesosFiltered = pesos;
+    })
+
+    //this.pesosFiltered = this.pesos;
 
     this.searchForm = this.fb.group({
       criteria: ['']
