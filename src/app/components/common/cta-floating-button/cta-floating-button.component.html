@@ -1,4 +1,9 @@
-<button mat-fab extended style="height: 52px;">
+<button (click)="agregarNuevoEjercicio()" mat-fab extended style="height: 52px;" *ngIf="this.ruta.includes('inicio')">
     <span>AGREGAR EJERCICIO</span>
     <mat-icon matSuffix style="order: 20; margin-left: 8px; transform: translateY(-2px);">add</mat-icon>
+</button>
+
+<button (click)="agregarNuevoPeso()" mat-fab extended style="height: 52px;" *ngIf="this.ruta.includes('detail')">
+  <span>AGREGAR NUEVO PESO AL EJERCICIO</span>
+  <mat-icon matSuffix style="order: 20; margin-left: 8px; transform: translateY(-2px);">score</mat-icon>
 </button>

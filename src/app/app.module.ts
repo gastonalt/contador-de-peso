@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +19,14 @@ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { CompleteUrlInterceptor } from './interceptor';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { EditPasoByFechaDialog } from './components/detail/edit-peso-by-fecha-dialog/edit-peso-by-fecha.dialog';
+import { ConfirmEliminarDialog } from './components/detail/confirm-eliminar-dialog/confirm-eliminar.dialog';
+import { NewEjercicioDialog } from './components/common/cta-floating-button/new-ejercicio-dialog/new-ejercicio.dialog';
+import { NewPesoDialog } from './components/common/cta-floating-button/new-peso-dialog/new-peso.dialog';
+registerLocaleData(localeEs, 'es');
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +35,11 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     InicioComponent,
     CtaFloatingButtonComponent,
     EditPasoDialog,
-    DetailComponent
+    DetailComponent,
+    EditPasoByFechaDialog,
+    ConfirmEliminarDialog,
+    NewEjercicioDialog,
+    NewPesoDialog
   ],
   imports: [
     BrowserModule,
@@ -41,6 +53,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
     NgxsStoragePluginModule.forRoot()
   ],
   providers: [
+    {provide: LOCALE_ID, useValue: 'es'},
     {provide: HTTP_INTERCEPTORS, useClass: CompleteUrlInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]

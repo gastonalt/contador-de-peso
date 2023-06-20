@@ -1,5 +1,7 @@
 
 <app-header></app-header>
-<app-subheader-status-section></app-subheader-status-section>
-<router-outlet></router-outlet>
+<main [@animacion]="getRouterOutletState(o)">
+  <app-subheader-status-section></app-subheader-status-section>
+  <router-outlet #o="outlet"></router-outlet>
+</main>
 <app-cta-floating-button></app-cta-floating-button>

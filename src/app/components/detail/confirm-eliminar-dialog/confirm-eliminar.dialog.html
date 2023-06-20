@@ -1,0 +1,10 @@
+<h1 class="title">Eliminar peso</h1>
+<div mat-dialog-content>
+  <p class="descripcion">Atención, está apunto de eliminar el peso del día <b>{{(pesoSeleccionado$ | async)?.fecha | date: 'dd/MM/yyyy'}}</b> para el ejercicio: <b>{{(pesoSeleccionado$ | async)?.ejercicio?.descripcion}}</b> de: <b>{{(pesoSeleccionado$ | async)?.peso}} Kg</b>. Esta acción no podrá deshacerse. ¿Desea continuar?</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial class="button-editar-peso">
+    Eliminar peso
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

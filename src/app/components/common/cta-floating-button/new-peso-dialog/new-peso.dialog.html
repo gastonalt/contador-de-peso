@@ -1,0 +1,14 @@
+<h1 class="title">Agregar nuevo peso al ejercicio: {{(pesoSeleccionado$ | async)?.ejercicio?.descripcion}}</h1>
+<div mat-dialog-content>
+  <p class="descripcion">Ingresa el nuevo peso para el ejercicio: </p>
+  <mat-form-field appearance="outline">
+    <input matInput [(ngModel)]="data.nuevoPeso" class="input-editar-peso">
+  </mat-form-field>
+  <small>Nuevo peso en Kg.</small>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="data.nuevoPeso" cdkFocusInitial class="button-editar-peso">
+    Agregar nuevo peso
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

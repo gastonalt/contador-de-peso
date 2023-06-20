@@ -17,4 +17,20 @@ export class PesosService {
   getPesosByEjercicio(idEjercicio: number): Observable<Peso[]>{
     return this.httpClient.get<Peso[]>('api/pesos/findAllByEjercicio/' + idEjercicio);
   }
+
+  addNewPeso(newPeso: Peso): Observable<Peso[]>{
+    return this.httpClient.post<Peso[]>('api/pesos/add', newPeso);
+  }
+
+  updatePeso(idPeso: number, newPeso: number, idEjercicio: number): Observable<Peso[]>{
+    return this.httpClient.put<Peso[]>(`api/pesos/update/${idPeso}`, {newPeso, idEjercicio});
+  }
+
+  deletePeso(idPeso: number, idEjercicio: number): Observable<Peso[]>{
+    return this.httpClient.delete<Peso[]>(`api/pesos/delete/${idPeso}/${idEjercicio}`);
+  }
+
+  addByEjercicio(newPeso: Peso): Observable<Peso[]>{
+    return this.httpClient.post<Peso[]>('api/pesos/addByEjercicio', newPeso);
+  }
 }

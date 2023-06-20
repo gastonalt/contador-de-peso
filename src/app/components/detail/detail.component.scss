@@ -4,3 +4,21 @@ mat-icon{
 .delete-icon{
     margin-top: 24px !important;
 }
+mat-list-item{
+  padding: 0 24px !important;
+  margin: 4px 0 !important;
+}
+
+::ng-deep mat-icon{
+  margin-right: 0px !important;
+}
+
+::ng-deep.mat-mdc-list-item-title, ::ng-deep.mat-mdc-list-item-line{
+  line-height: 32px !important;
+  /* identical to box height, or 139% */
+}
+
+mat-divider{
+  width: 90%;
+  margin: auto;
+}

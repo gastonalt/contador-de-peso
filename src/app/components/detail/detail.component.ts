@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {Select} from '@ngxs/store';
+import { MatDialog } from '@angular/material/dialog';
+import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Peso } from 'src/app/models/Peso';
 import { PesosService } from 'src/app/services/pesos.service';
 import { PesosState } from 'src/app/state/pesoSeleccionado.state';
+import { EditPasoDialog } from '../inicio/edit-peso-dialog/edit-paso.dialog';
+import { EditPasoByFechaDialog } from './edit-peso-by-fecha-dialog/edit-peso-by-fecha.dialog';
+import { ConfirmEliminarDialog } from './confirm-eliminar-dialog/confirm-eliminar.dialog';
+import { ListaPesosState, SetListaPesosAction } from 'src/app/state/listaPesos.state';
 
 @Component({
   selector: 'app-detail',
@@ -11,50 +16,64 @@ import { PesosState } from 'src/app/state/pesoSeleccionado.state';
   styleUrls: ['./detail.component.scss']
 })
 export class DetailComponent implements OnInit{
-  @Select(PesosState) pesoSeleccionado$!: Observable<Peso>;
+  @Select(PesosState.getPesoSeleccionado) pesoSeleccionado$!: Observable<Peso>;
+  @Select(ListaPesosState.getListaPesos) pesos$!: Observable<Peso[]>;
   pesoSeleccionado!: Peso;
-  pesosFiltered: Peso[] = [];
+  pesos: Peso[] = [];
 
-  pesos: Peso[] = [
-    {
-      idPeso: 1,
-      ejercicio: {
-        idEjercicio: 1,
-        descripcion: 'Cuadriceps'
-      },
-      peso: 35,
-      borrado: false,
-      fecha: new Date()
-    },
-    {
-      idPeso: 2,
-      ejercicio: {
-        idEjercicio: 2,
-        descripcion: 'Biceps'
-      },
-      peso: 5,
-      borrado: false,
-      fecha: new Date()
-    }
-  ];
-
-  constructor(private pesosService: PesosService){}
+  constructor(private pesosService: PesosService,
+              public dialog: MatDialog,
+              private store: Store
+              ){}
 
   ngOnInit(): void {
-
-    
-    this.pesosFiltered = this.pesos;
-    
-    this.pesoSeleccionado$.subscribe((peso: any) => {
-      this.pesoSeleccionado = peso;
-      console.log(this.pesoSeleccionado)
-      this.pesosService.getPesosByEjercicio(peso.pesoSeleccionado.ejercicio.idEjercicio).subscribe((pesos: Peso[])=>{
-        this.pesosFiltered = pesos;
-      })
+    this.pesos$.subscribe(pesos => {
+      this.pesos = pesos;
     })
+    this.getPesos([]);
+  }
+
+  getPesos(listaActualizada: Peso[]){
+    if(listaActualizada.length > 0){
+      this.store.dispatch(new SetListaPesosAction(listaActualizada));
+      //this.pesos = listaActualizada;
+    }else{
+      this.pesoSeleccionado$.subscribe((peso: any) => {
+        this.pesoSeleccionado = peso;
+        this.pesosService.getPesosByEjercicio(peso.ejercicio.idEjercicio).subscribe((pesos: Peso[])=>{
+          this.store.dispatch(new SetListaPesosAction(pesos));
+          //this.pesos = pesos;
+        })
+      })
+    }
+  }
+
+  editarPeso(peso: Peso){
+    const dialogRef = this.dialog.open(EditPasoByFechaDialog, {
+      data: {pesoAnterior: peso.peso, nuevoPeso: peso.peso, fechaPesoAnterior: peso.fecha},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result && result !== ''){
+        console.log(result)
+        this.pesosService.updatePeso(peso.idPeso, result, this.pesoSeleccionado.ejercicio.idEjercicio)
+        .subscribe((listaActualizada: Peso[])=>{
+          this.getPesos(listaActualizada);
+        })
+      }
+    });
   }
 
   eliminar(peso: Peso){
+    const dialogRef = this.dialog.open(ConfirmEliminarDialog);
 
+    dialogRef.afterClosed().subscribe(eliminar => {
+      if(eliminar){
+        this.pesosService.deletePeso(peso.idPeso, peso.ejercicio.idEjercicio)
+        .subscribe((listaActualizada: Peso[])=>{
+          this.getPesos(listaActualizada);
+        })
+      }
+    });
   }
 }

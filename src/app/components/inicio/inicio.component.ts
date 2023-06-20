@@ -5,9 +5,11 @@ import { Peso } from 'src/app/models/Peso';
 import { SearchService } from 'src/app/services/search.service';
 import { EditPasoDialog } from './edit-peso-dialog/edit-paso.dialog';
 import { SetPesoSeleccionadoAction } from 'src/app/state/pesoSeleccionado.state';
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Router } from '@angular/router';
 import { PesosService } from 'src/app/services/pesos.service';
+import { ListaPesosState, ListaPesosStateModel, SetListaPesosAction } from 'src/app/state/listaPesos.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inicio',
@@ -16,32 +18,12 @@ import { PesosService } from 'src/app/services/pesos.service';
 })
 export class InicioComponent implements OnInit{
 
+  @Select(ListaPesosState.getListaPesos) $listaPesosState!: Observable<Peso[]>
+
   value = '';
   searchForm!: FormGroup;
 
-  pesos: Peso[] = [
-    {
-      idPeso: 1,
-      ejercicio: {
-        idEjercicio: 1,
-        descripcion: 'Cuadriceps'
-      },
-      peso: 35,
-      borrado: false,
-      fecha: new Date()
-    },
-    {
-      idPeso: 2,
-      ejercicio: {
-        idEjercicio: 2,
-        descripcion: 'Biceps'
-      },
-      peso: 5,
-      borrado: false,
-      fecha: new Date()
-    }
-  ];
-
+  pesos: Peso[] = [];
   pesosFiltered: Peso[] = [];
 
   constructor(private searchService: SearchService,
@@ -53,11 +35,11 @@ export class InicioComponent implements OnInit{
 
   ngOnInit() {
 
-    this.pesosService.getAllPesos().subscribe((pesos: Peso[])=>{
-      this.pesosFiltered = pesos;
+    this.$listaPesosState.subscribe((pesos: Peso[])=>{
+      this.pesos = pesos;
     })
 
-    //this.pesosFiltered = this.pesos;
+    this.getPesos([]);
 
     this.searchForm = this.fb.group({
       criteria: ['']
@@ -71,6 +53,7 @@ export class InicioComponent implements OnInit{
     })
 
     this.searchForm.valueChanges.subscribe((value: any)=>{
+      console.log(value.criteria);
       this.searchService.setBuscando(value.criteria.length !== 0);
       if(value.criteria.length > 0){
         this.buscar(value.criteria);
@@ -80,15 +63,32 @@ export class InicioComponent implements OnInit{
     })
   }
 
+  getPesos(listaActualizada: Peso[]){
+    if(listaActualizada.length === 0){
+      this.pesosService.getAllPesos().subscribe((pesos: Peso[])=>{
+        this.store.dispatch(new SetListaPesosAction(pesos));
+        //this.pesos = pesos;
+        this.pesosFiltered = this.pesos;
+      })
+    }else{
+      this.store.dispatch(new SetListaPesosAction(listaActualizada));
+      //this.pesos = listaActualizada
+      this.pesosFiltered = this.pesos;
+    }
+  }
+
   editarPeso(peso: Peso){
     const dialogRef = this.dialog.open(EditPasoDialog, {
       data: {nuevoPeso: peso.peso},
     });
 
     dialogRef.afterClosed().subscribe(nuevoPeso => {
-      peso.peso = nuevoPeso;
-      console.log(nuevoPeso);
-      // Edito en el backend este nuevo peso
+      if(nuevoPeso && nuevoPeso !== ''){
+        this.pesosService.addNewPeso(new Peso(peso.ejercicio, nuevoPeso, new Date()))
+        .subscribe((listaActualizada: Peso[])=>{
+          this.getPesos(listaActualizada);
+        })
+      }
     });
   }
 

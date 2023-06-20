@@ -2,6 +2,7 @@
   <div class="container">
     <div class="text">
       <h3 (click)="clearBusqueda()">
+        <mat-icon [ngStyle]="{'display': (isBuscando)? 'none': 'block'}">chevron_left</mat-icon>
         {{textSubHeader}}
       </h3>
       <h1>

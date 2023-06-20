@@ -1,0 +1,84 @@
+.title{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 32px;
+    /* identical to box height, or 160% */
+
+    letter-spacing: 0.25px;
+
+    color: rgba(255, 255, 255, 0.87);
+
+    margin: 16px;
+}
+
+.mdc-dialog__content{
+  margin: 8px 24px !important;
+}
+
+.mat-mdc-dialog-content{
+  padding: 0 !important;
+}
+
+b{
+  font-weight: 900 !important;
+}
+
+.descripcion{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    /* or 157% */
+
+    letter-spacing: 0.1px;
+
+    color: rgba(255, 255, 255, 0.87);
+}
+
+::ng-deep.mdc-dialog__surface{
+  background-color: #111111 !important;
+  border: 1px solid #F2CB05 !important;
+}
+
+::ng-deep.mat-mdc-dialog-actions, ::ng-deep.mdc-dialog__actions{
+  justify-content: end !important;
+}
+
+.button-editar-peso{
+  display: flex !important;
+  flex-direction: row-reverse !important;
+  gap: 8px !important;
+  color: #F2CB05 !important;
+  text-transform: uppercase !important;
+}
+
+small{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  /* identical to box height, or 167% */
+
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.4px;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.mat-mdc-form-field{
+  width: 100% !important;
+}
+
+.mat-mdc-button-touch-target{
+  opacity: 0 !important;
+}
+
+.mat-mdc-button, .mat-mdc-outlined-button{
+  --mat-mdc-button-persistent-ripple-color: rgba(0,0,0,0) !important;
+  --mat-mdc-button-ripple-color: rgba(0, 0, 0, 0) !important;
+}

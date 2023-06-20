@@ -6,4 +6,10 @@ export class Peso{
     peso!: number;
     borrado!: boolean;
     fecha!: Date;
+
+    constructor(ejercicio: Ejercicio,peso: number, fecha: Date) {
+      this.ejercicio = ejercicio;
+      this.peso = peso;
+      this.fecha = fecha;
+    }
 }
