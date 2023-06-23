@@ -11,7 +11,7 @@ export class CompleteUrlInterceptor implements HttpInterceptor {
       }));
     } */
     const headers = req.clone({
-      url: 'http://localhost:3000/' + req.url,
+      url: 'https://contador-de-peso-backend.onrender.com/' + req.url,
     });
     return next.handle(headers);
   }
