@@ -3,7 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 export interface DialogData {
     descripcionEjercicio: string;
-    pesoEjercicio: number;
+    peso: number;
 }
 
 @Component({
@@ -12,7 +12,6 @@ export interface DialogData {
     styleUrls: ['./new-ejercicio.dialog.scss']
 })
 export class NewEjercicioDialog {
-
     constructor(
         public dialogRef: MatDialogRef<NewEjercicioDialog>,
         @Inject(MAT_DIALOG_DATA) public data: DialogData,

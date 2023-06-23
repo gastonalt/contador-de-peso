@@ -1,18 +1,19 @@
-<h1 class="title">Registrar un nuevo ejercicio</h1>
+<h1 class="title">Agregar un nuevo ejercicio</h1>
 <div mat-dialog-content>
-  <p class="descripcion">Por favor ingrese el nombre del ejercicio</p>
+  <p class="descripcion">Nombre del ejercicio</p>
   <mat-form-field appearance="outline">
     <input matInput [(ngModel)]="data.descripcionEjercicio" class="input-editar-peso">
   </mat-form-field>
-  <p class="descripcion">Por favor ingrese el peso con el que hace el ejercicio</p>
+  <small>Nombre con el que se visualizará el ejercicio en el listado.</small>
+  <p class="descripcion">Peso inicial del ejercicio</p>
   <mat-form-field appearance="outline">
-    <input matInput [(ngModel)]="data.pesoEjercicio" class="input-editar-peso">
+    <input matInput [(ngModel)]="data.peso" class="input-editar-peso">
   </mat-form-field>
-  <small>Primer peso del ejercicio en Kg.</small>
+  <small>Peso en Kg.</small>
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial class="button-editar-peso">
-    Registrar ejercicio
+    Crear ejercicio
     <mat-icon>add</mat-icon>
   </button>
 </div>

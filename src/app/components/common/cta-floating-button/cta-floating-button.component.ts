@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { EditPasoDialog } from '../../inicio/edit-peso-dialog/edit-paso.dialog';
@@ -7,6 +7,8 @@ import { Peso } from 'src/app/models/Peso';
 import { PesosState } from 'src/app/state/pesoSeleccionado.state';
 import { Store } from '@ngxs/store';
 import { SetListaPesosAction } from 'src/app/state/listaPesos.state';
+import { NewEjercicioDialog } from './new-ejercicio-dialog/new-ejercicio.dialog';
+import { EjerciciosService } from 'src/app/services/ejercicios.service';
 
 @Component({
   selector: 'app-cta-floating-button',
@@ -17,7 +19,9 @@ export class CtaFloatingButtonComponent implements OnInit {
 
   ruta = '';
 
-  constructor(private router: Router, private dialog: MatDialog, private pesosService: PesosService, private store: Store){}
+  offsetFlag: boolean = false;
+
+  constructor(private router: Router, private dialog: MatDialog, private pesosService: PesosService, private store: Store, private ejerciciosService: EjerciciosService){}
 
   ngOnInit(): void {
     this.router.events.subscribe((/* cambió la ruta */)=>{
@@ -25,8 +29,27 @@ export class CtaFloatingButtonComponent implements OnInit {
     });
   }
 
-  agregarNuevoEjercicio(){
+  @HostListener('window:scroll', ['$event']) getScrollHeight(event: any) {
+    if(window.pageYOffset> 0 )
+      this.offsetFlag = false;
+    else
+      this.offsetFlag = true;
+  }
 
+  agregarNuevoEjercicio(){
+    const dialogRef = this.dialog.open(NewEjercicioDialog, {
+      data: {},
+    });
+
+    dialogRef.afterClosed().subscribe(data => {
+      if(data && data.descripcionEjercicio && data.descripcionEjercicio !== '' && data.peso && data.peso !== ''){
+        this.ejerciciosService.addEjercicio(data.descripcionEjercicio, data.peso)
+        .subscribe((listaActualizada: Peso[])=>{
+          console.log(listaActualizada);
+          this.store.dispatch(new SetListaPesosAction(listaActualizada));
+        })
+      }
+    });
   }
 
   agregarNuevoPeso(){

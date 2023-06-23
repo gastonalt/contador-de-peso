@@ -35,11 +35,12 @@ export class InicioComponent implements OnInit{
 
   ngOnInit() {
 
+    this.getPesos([]);
+
     this.$listaPesosState.subscribe((pesos: Peso[])=>{
       this.pesos = pesos;
+      this.pesosFiltered = this.pesos;
     })
-
-    this.getPesos([]);
 
     this.searchForm = this.fb.group({
       criteria: ['']
@@ -67,12 +68,10 @@ export class InicioComponent implements OnInit{
     if(listaActualizada.length === 0){
       this.pesosService.getAllPesos().subscribe((pesos: Peso[])=>{
         this.store.dispatch(new SetListaPesosAction(pesos));
-        //this.pesos = pesos;
         this.pesosFiltered = this.pesos;
       })
     }else{
       this.store.dispatch(new SetListaPesosAction(listaActualizada));
-      //this.pesos = listaActualizada
       this.pesosFiltered = this.pesos;
     }
   }
