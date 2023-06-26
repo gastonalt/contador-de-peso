@@ -38,12 +38,14 @@ export class CtaFloatingButtonComponent implements OnInit {
 
   agregarNuevoEjercicio(){
     const dialogRef = this.dialog.open(NewEjercicioDialog, {
-      data: {},
+      data: {
+        fecha: new Date()
+      },
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      if(data && data.descripcionEjercicio && data.descripcionEjercicio !== '' && data.peso && data.peso !== ''){
-        this.ejerciciosService.addEjercicio(data.descripcionEjercicio, data.peso)
+      if(data && data.descripcionEjercicio && data.descripcionEjercicio !== '' && data.peso && data.peso !== '' && data.fecha){
+        this.ejerciciosService.addEjercicio(data.descripcionEjercicio, data.peso, data.fecha)
         .subscribe((listaActualizada: Peso[])=>{
           console.log(listaActualizada);
           this.store.dispatch(new SetListaPesosAction(listaActualizada));

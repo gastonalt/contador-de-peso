@@ -10,6 +10,13 @@
     <input matInput [(ngModel)]="data.peso" class="input-editar-peso">
   </mat-form-field>
   <small>Peso en Kg.</small>
+  <mat-form-field appearance="outline" style="margin-top: 16px;">
+    <mat-label>Fecha del peso:</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="data.fecha" class="input-editar-peso">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <small>Fecha para registrar el nuevo peso:</small>
 </div>
 <div mat-dialog-actions>
   <button mat-button [mat-dialog-close]="data" cdkFocusInitial class="button-editar-peso">

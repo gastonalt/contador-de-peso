@@ -4,6 +4,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export interface DialogData {
     descripcionEjercicio: string;
     peso: number;
+    fecha: Date;
 }
 
 @Component({

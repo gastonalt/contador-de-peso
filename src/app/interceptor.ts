@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class CompleteUrlInterceptor implements HttpInterceptor {
 
-  url = 'https://contador-de-peso-backend.onrender.com/';
-  //url = 'http://localhost:3000/';
+  //url = 'https://contador-de-peso-backend.onrender.com/';
+  url = 'http://localhost:3000/';
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 /*     const token = localStorage.getItem('token');
