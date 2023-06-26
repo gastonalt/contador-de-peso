@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Peso } from 'src/app/models/Peso';
 import { SearchService } from 'src/app/services/search.service';
-import { EditPasoDialog } from './edit-peso-dialog/edit-paso.dialog';
+import { EditPesoDialog } from './edit-peso-dialog/edit-peso.dialog';
 import { SetPesoSeleccionadoAction } from 'src/app/state/pesoSeleccionado.state';
 import { Select, Store } from '@ngxs/store';
 import { Router } from '@angular/router';
@@ -77,13 +77,13 @@ export class InicioComponent implements OnInit{
   }
 
   editarPeso(peso: Peso){
-    const dialogRef = this.dialog.open(EditPasoDialog, {
-      data: {nuevoPeso: peso.peso},
+    const dialogRef = this.dialog.open(EditPesoDialog, {
+      data: {nuevoPeso: peso.peso, fecha: new Date(), ejercicio: peso.ejercicio.descripcion},
     });
 
-    dialogRef.afterClosed().subscribe(nuevoPeso => {
-      if(nuevoPeso && nuevoPeso !== ''){
-        this.pesosService.addNewPeso(new Peso(peso.ejercicio, nuevoPeso, new Date()))
+    dialogRef.afterClosed().subscribe(dataFromDialog => {
+      if(dataFromDialog && dataFromDialog.nuevoPeso && dataFromDialog.nuevoPeso !== ''){
+        this.pesosService.addNewPeso(new Peso(peso.ejercicio, dataFromDialog.nuevoPeso, dataFromDialog.fecha))
         .subscribe((listaActualizada: Peso[])=>{
           this.getPesos(listaActualizada);
         })

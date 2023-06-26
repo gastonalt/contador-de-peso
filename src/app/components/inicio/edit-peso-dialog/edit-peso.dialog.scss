@@ -51,6 +51,14 @@
   text-transform: uppercase !important;
 }
 
+::ng-deep.mat-mdc-floating-label{
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+::ng-deep.mdc-icon-button, ng:deep.mat-mdc-icon-button{
+  color: #F2CB05 !important;
+}
+
 small{
   font-family: 'Roboto';
   font-style: normal;

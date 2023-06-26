@@ -1,7 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { EditPasoDialog } from '../../inicio/edit-peso-dialog/edit-paso.dialog';
+import { EditPesoDialog } from '../../inicio/edit-peso-dialog/edit-peso.dialog';
 import { PesosService } from 'src/app/services/pesos.service';
 import { Peso } from 'src/app/models/Peso';
 import { PesosState } from 'src/app/state/pesoSeleccionado.state';
@@ -54,13 +54,13 @@ export class CtaFloatingButtonComponent implements OnInit {
 
   agregarNuevoPeso(){
     const peso = this.store.selectSnapshot(PesosState.getPesoSeleccionado);
-    const dialogRef = this.dialog.open(EditPasoDialog, {
+    const dialogRef = this.dialog.open(EditPesoDialog, {
       data: {},
     });
 
-    dialogRef.afterClosed().subscribe(nuevoPeso => {
-      if(nuevoPeso && nuevoPeso !== ''){
-        this.pesosService.addByEjercicio(new Peso(peso!.ejercicio, nuevoPeso, new Date()))
+    dialogRef.afterClosed().subscribe(dataFromDialog => {
+      if(dataFromDialog && dataFromDialog.nuevoPeso && dataFromDialog.nuevoPeso !== ''){
+        this.pesosService.addNewPeso(new Peso(this.store.selectSnapshot(PesosState.getPesoSeleccionado)!.ejercicio, dataFromDialog.nuevoPeso, dataFromDialog.fecha))
         .subscribe((listaActualizada: Peso[])=>{
           this.store.dispatch(new SetListaPesosAction(listaActualizada));
         })

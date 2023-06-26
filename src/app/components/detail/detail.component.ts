@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { Peso } from 'src/app/models/Peso';
 import { PesosService } from 'src/app/services/pesos.service';
 import { PesosState } from 'src/app/state/pesoSeleccionado.state';
-import { EditPasoDialog } from '../inicio/edit-peso-dialog/edit-paso.dialog';
 import { EditPasoByFechaDialog } from './edit-peso-by-fecha-dialog/edit-peso-by-fecha.dialog';
 import { ConfirmEliminarDialog } from './confirm-eliminar-dialog/confirm-eliminar.dialog';
 import { ListaPesosState, SetListaPesosAction } from 'src/app/state/listaPesos.state';
